@@ -171,17 +171,11 @@ void print(int x, int y)
 		{
 			cout << "   ";
 			if (num[x][y] == 2)
-			{
 				cout << num[x][y];
-			}
 			if (num[x][y] == 4)
-			{
 				cout << num[x][y];
-			}
 			if (num[x][y] == 8)
-			{
 				cout << num[x][y];
-			}
 			cout << "   ";
 		}
 		else
