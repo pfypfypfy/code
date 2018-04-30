@@ -472,4 +472,5 @@ int main()
 	if (MessageBox(NULL, "Load Game?", "question", MB_YESNO) == IDYES) load();
 	else beginning();
 	play();
+	return 0;
 }
