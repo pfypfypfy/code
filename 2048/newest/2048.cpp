@@ -22,35 +22,32 @@ int score;
 
 #define PERR(bSuccess, api) \
 {if(!(bSuccess)) printf("%s:Error %d from %s on line %d\n", __FILE__,GetLastError(), api, __LINE__);}
-void MyCls(HANDLE) ;
-inline void clrscr(void)
+void MyCls(HANDLE);
+inline void clrscr()
 {
 	HANDLE hStdOut=GetStdHandle(STD_OUTPUT_HANDLE);
 	MyCls(hStdOut);
 	return;
 }
+
 void MyCls(HANDLE hConsole)
 {
 	COORD coordScreen= {0,0}; //设置清屏后光标返回的屏幕左上角坐标
 	BOOL bSuccess;
 	DWORD cCharsWritten;
-	CONSOLE_SCREEN_BUFFER_INFO csbi;//保存缓冲区信息
-	DWORD dwConSize;//当前缓冲区可容纳的字符数
-	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);//获得缓冲区信息
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD dwConSize;
+	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);
 	PERR(bSuccess,"GetConsoleScreenBufferInfo");
-	dwConSize=csbi.dwSize.X * csbi.dwSize.Y;//缓冲区容纳字符数目
-//用空格填充缓冲区
+	dwConSize=csbi.dwSize.X * csbi.dwSize.Y;
 	bSuccess=FillConsoleOutputCharacter(hConsole,(TCHAR)' ',dwConSize,coordScreen,&cCharsWritten);
 	PERR(bSuccess,"FillConsoleOutputCharacter");
-	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);//获得缓冲区信息
+	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);
 	PERR(bSuccess,"ConsoleScreenBufferInfo");
-//填充缓冲区属性
 	bSuccess=FillConsoleOutputAttribute(hConsole,csbi.wAttributes,dwConSize,coordScreen,&cCharsWritten);
 	PERR(bSuccess,"FillConsoleOutputAttribute");
-//光标返回屏幕左上角坐标
 	bSuccess=SetConsoleCursorPosition(hConsole,coordScreen);
 	PERR(bSuccess,"SetConsoleCursorPosition");
-	return;
 }
 
 void hidecursor()
@@ -226,7 +223,7 @@ bool compare()
 			}
 	fin >> comp;
 	fin.close();
-	return comp ^ score;
+	return comp != score;
 }
 
 void save()
