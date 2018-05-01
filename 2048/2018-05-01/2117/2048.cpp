@@ -15,6 +15,8 @@ char a[] = " ------------------------------- \n";
 char b[] = "|       |       |       |       |\n";
 string c = "|   ", d = "   |   ", e = "   |\n";
 
+bool fflag;
+
 int neww[4] = { 2,2,4,2 };
 int num[5][5];
 int used[5][5], b1[5][5];
@@ -74,9 +76,9 @@ class HELPER
 		void jieshao()
 		{
 			clrscr();
-			puts("æ¸¸æˆä»‹ç»");
-			puts("2048æ˜¯ä¸€æ¬¾æ•°å­—ç›Šæ™ºæ¸¸æˆï¼Œè€Œã€Š2048ã€‹çš„åˆå§‹æ•°å­—åˆ™æ˜¯ç”±2+2ç»„æˆçš„åŸºæ•°4ã€‚åœ¨æ“ä½œæ–¹é¢çš„ä¸åŒåˆ™è¡¨çŽ°ä¸ºä¸€æ­¥ä¸€æ ¼çš„ç§»åŠ¨ï¼Œå˜æˆæ›´ä¸ºçˆ½å¿«çš„ä¸€æ¬¡åˆ°åº•ã€‚ç›¸åŒæ•°å­—çš„æ–¹å†µåœ¨é æ‹¢ã€ç›¸æ’žæ—¶ä¼šç›¸åŠ ã€‚ç³»ç»Ÿç»™äºˆçš„æ•°å­—æ–¹å—ä¸æ˜¯2å°±æ˜¯4ï¼ŒçŽ©å®¶è¦æƒ³åŠžæ³•åœ¨è¿™å°å°çš„16æ ¼èŒƒå›´ä¸­å‡‘å‡ºã€Œ2048ã€è¿™ä¸ªæ•°å­—æ–¹å—ã€‚");
-			puts("\næŒ‰'B'é”®è¿”å›žï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚");
+			puts("ÓÎÏ·½éÉÜ");
+			puts("2048ÊÇÒ»¿îÊý×ÖÒæÖÇÓÎÏ·£¬¶ø¡¶2048¡·µÄ³õÊ¼Êý×ÖÔòÊÇÓÉ2+2×é³ÉµÄ»ùÊý4¡£ÔÚ²Ù×÷·½ÃæµÄ²»Í¬Ôò±íÏÖÎªÒ»²½Ò»¸ñµÄÒÆ¶¯£¬±ä³É¸üÎªË¬¿ìµÄÒ»´Îµ½µ×¡£ÏàÍ¬Êý×ÖµÄ·½¿öÔÚ¿¿Â£¡¢Ïà×²Ê±»áÏà¼Ó¡£ÏµÍ³¸øÓèµÄÊý×Ö·½¿é²»ÊÇ2¾ÍÊÇ4£¬Íæ¼ÒÒªÏë°ì·¨ÔÚÕâÐ¡Ð¡µÄ16¸ñ·¶Î§ÖÐ´Õ³ö¡¸2048¡¹Õâ¸öÊý×Ö·½¿é¡£");
+			puts("\n°´'B'¼ü·µ»Ø£¬°´'C'¼ÌÐøÓÎÏ·¡£");
 			for (;;)
 			{
 				char ch = in();
@@ -89,9 +91,9 @@ class HELPER
 		void teach()
 		{
 			clrscr();
-			puts("æ¸¸æˆæ”»ç•¥");
-			puts("1ã€æœ€å¤§æ•°å°½å¯èƒ½æ”¾åœ¨è§’è½ã€‚\n2ã€æ•°å­—æŒ‰é¡ºåºç´§é‚»æŽ’åˆ—ã€‚\n3ã€é¦–å…ˆæ»¡è¶³æœ€å¤§æ•°å’Œæ¬¡å¤§æ•°åœ¨çš„é‚£ä¸€åˆ— / è¡Œæ˜¯æ»¡çš„ã€‚\n4ã€æ—¶åˆ»æ³¨æ„æ´»åŠ¨è¾ƒå¤§æ•°ï¼ˆ32ä»¥ä¸Šï¼‰æ—è¾¹è¦æœ‰ç›¸è¿‘çš„æ•°ã€‚\n5ã€ä»¥å¤§æ•°æ‰€åœ¨çš„ä¸€è¡Œä¸ºä¸»è¦ç§»åŠ¨æ–¹å‘\n6ã€ä¸è¦æ€¥äºŽâ€œæ¸…ç†æ¡Œé¢â€ã€‚");
-			puts("\næŒ‰'B'é”®è¿”å›žï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚");
+			puts("ÓÎÏ·¹¥ÂÔ");
+			puts("1¡¢×î´óÊý¾¡¿ÉÄÜ·ÅÔÚ½ÇÂä¡£\n2¡¢Êý×Ö°´Ë³Ðò½ôÁÚÅÅÁÐ¡£\n3¡¢Ê×ÏÈÂú×ã×î´óÊýºÍ´Î´óÊýÔÚµÄÄÇÒ»ÁÐ / ÐÐÊÇÂúµÄ¡£\n4¡¢Ê±¿Ì×¢Òâ»î¶¯½Ï´óÊý£¨32ÒÔÉÏ£©ÅÔ±ßÒªÓÐÏà½üµÄÊý¡£\n5¡¢ÒÔ´óÊýËùÔÚµÄÒ»ÐÐÎªÖ÷ÒªÒÆ¶¯·½Ïò\n6¡¢²»Òª¼±ÓÚ¡°ÇåÀí×ÀÃæ¡±¡£");
+			puts("\n°´'B'¼ü·µ»Ø£¬°´'C'¼ÌÐøÓÎÏ·¡£");
 			for (;;)
 			{
 				char ch = in();
@@ -103,9 +105,9 @@ class HELPER
 		void ppress()
 		{
 			clrscr();
-			puts("æŒ‰é”®åŠŸèƒ½");
-			puts("ä¸Š:'W','â†‘'\nä¸‹:'S','â†“'\nå·¦:'A','â†'\nå³:'D','â†’'\nä¿å­˜:'Q'\né€€å‡º:'O'\né‡æ–°å¼€å§‹:'B'\nå¸®åŠ©:'H'");
-			puts("\næŒ‰'B'é”®è¿”å›žï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚");
+			puts("°´¼ü¹¦ÄÜ");
+			puts("ÉÏ:'W','¡ü'\nÏÂ:'S','¡ý'\n×ó:'A','¡û'\nÓÒ:'D','¡ú'\n±£´æ:'Q'\nÍË³ö:'O'\nÖØÐÂ¿ªÊ¼:'B'\n°ïÖú:'H'");
+			puts("\n°´'B'¼ü·µ»Ø£¬°´'C'¼ÌÐøÓÎÏ·¡£");
 			for (;;)
 			{
 				char ch = in();
@@ -121,7 +123,7 @@ class HELPER
 			for (;;)
 			{
 				clrscr();
-				puts("æŒ‰æ•°å­—é”®æ¥é€‰æ‹©ï¼ŒæŒ‰'B'é”®è¿”å›žï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚\n1.æ¸¸æˆä»‹ç»\n2.æŒ‰é”®åŠŸèƒ½\n3.æ¸¸æˆæ”»ç•¥");
+				puts("°´Êý×Ö¼üÀ´Ñ¡Ôñ£¬°´'B'¼ü·µ»Ø£¬°´'C'¼ÌÐøÓÎÏ·¡£\n1.ÓÎÏ·½éÉÜ\n2.°´¼ü¹¦ÄÜ\n3.ÓÎÏ·¹¥ÂÔ");
 				char ch = in();
 				switch (ch)
 				{
@@ -161,7 +163,7 @@ void color()
 	{
 		clrscr();
 		puts("What color do you want?\npress '1', '2', '3' to choose, and press 's' to save");
-		puts("\n1. ç™½åº•é»‘å­—\n2. é»‘åº•ç™½å­—\n") ;
+		puts("\n1. °×µ×ºÚ×Ö\n2. ºÚµ×°××Ö\n") ;
 		int co = in();
 		switch(co)
 		{
@@ -234,7 +236,7 @@ void save()
 			fout << num[i][j] << ' ';
 	fout << score;
 	fout.close();
-	MessageBox(NULL, "ä¿å­˜æˆåŠŸï¼", "WARNING", MB_OK);
+	MessageBox(NULL, "±£´æ³É¹¦£¡", "WARNING", MB_OK);
 }
 
 void load()
@@ -245,7 +247,7 @@ void load()
 		{
 			if ((!(fin >> num[i][j])) || (num[i][j] & 1))
 			{
-				MessageBox(NULL, "æ‰¾ä¸åˆ°åˆæ³•æ–‡ä»¶ï¼Œå‡†å¤‡é‡æ–°å¼€å§‹", "WARNING", MB_OK);
+				MessageBox(NULL, "ÕÒ²»µ½ºÏ·¨ÎÄ¼þ£¬×¼±¸ÖØÐÂ¿ªÊ¼", "WARNING", MB_OK);
 				beginning();
 				ofstream fout("saveload.data");
 				for (int i = 1; i <= 4; i++)
@@ -329,6 +331,7 @@ void out()
 	sprintf(ssaa,"Score:%d\nPress 'H' to find help.\n",score);
 	clrscr();
 	puts(aa);
+	fflag=false;
 }
 
 #undef ssaa
@@ -551,7 +554,11 @@ void play()
 				color();
 				continue;
 			default:
-				cerr << "Sorry, I don't seem to understand. You can press 'H' to find help" << '\n';
+				if(fflag==false)
+				{
+					fflag=true;
+					cerr << "Sorry, I don't seem to understand. You can press 'H' to find help." << '\n';
+				}
 				continue;
 		}
 		bool full = 1, usable = 0;
@@ -611,7 +618,7 @@ int main()
 {
 	hidecursor();
 	MessageBox(NULL, "Welcome to 2048 games.", "WELCOME", MB_OK);
-	MessageBox(NULL, "åœ¨çŽ©æ­¤æ¸¸æˆæ—¶ï¼Œè¯·ä¸è¦å¼€å¤§å†™é”å®šã€‚", "helper", MB_OK);
+	MessageBox(NULL, "ÔÚÍæ´ËÓÎÏ·Ê±£¬Çë²»Òª¿ª´óÐ´Ëø¶¨¡£", "helper", MB_OK);
 	if (MessageBox(NULL, "Load Game?", "question", MB_YESNO) == IDYES) load();
 	else beginning();
 	char aaa[20];
