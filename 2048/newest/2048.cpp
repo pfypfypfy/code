@@ -9,7 +9,7 @@
 
 using namespace std;
 
-ofstream ffout("tmp.tmp");
+char aa[1000];
 
 char a[] = " ------------------------------- \n";
 char b[] = "|       |       |       |       |\n";
@@ -81,10 +81,6 @@ class HELPER
 		}
 
 	public:
-		void realtime_helper()
-		{
-			cout << "Press 'H' to find help.\n";
-		}
 		void help()
 		{
 			for (;;)
@@ -95,8 +91,7 @@ class HELPER
 					return;
 				}
 				system("cls");
-				puts("按数字键来选择，按'B'键返回，按'C'继续游戏。");
-				puts("1.游戏介绍\n2.按键功能\n3.游戏攻略");
+				puts("按数字键来选择，按'B'键返回，按'C'继续游戏。\n1.游戏介绍\n2.按键功能\n3.游戏攻略");
 				char ch = in();
 				switch (ch)
 				{
@@ -108,13 +103,13 @@ class HELPER
 						return;
 					case '1':
 						jieshao();
-						continue;
+						break;
 					case '2':
 						ppress();
-						continue;
+						break;
 					case '3':
 						teach();
-						continue;
+						break;
 				}
 			}
 		}
@@ -123,7 +118,36 @@ class HELPER
 int last_move[5][5];
 int X, Y;
 
-inline void beginning()
+void color()
+{
+	string colo;
+	for(;;)
+	{
+		system("cls");
+		puts("What color do you want?\npress '1', '2', '3' to choose, and press 's' to save");
+		puts("\n1. 白底黑字\n2. 黑底白字\n") ;
+		int co = in();
+		switch(co)
+		{
+			case '1':
+				system("color f0");
+				colo="color f0";
+				break;
+			case '2':
+				system("color 0f");
+				colo="color 0f";
+				break;
+			case 's':
+				out();
+				ofstream ffout("color.bak");
+				ffout<<colo;
+				ffout.close();
+				return;
+		}
+	}
+}
+
+void beginning()
 {
 	score = 0;
 	memset(num, 0, sizeof(num));
@@ -156,7 +180,7 @@ bool compare()
 	ifstream fin("saveload.data");
 	for (int i = 1; i <= 4; i++)
 		for (int j = 1; j <= 4; j++)
-			if ((!(fin >> comp)) || (comp ^ num[i][j]))
+			if ((!(fin >> comp)) || (comp != num[i][j]))
 			{
 				fin.close();
 				return true;
@@ -199,8 +223,6 @@ void load()
 	fin >> score;
 	fin.close();
 }
-
-char aa[1000];
 
 #define ssaa (aa+strlen(aa))
 
@@ -268,10 +290,9 @@ void out()
 	print(4, 4);
 	sprintf(ssaa,"|\n");
 	sprintf(ssaa,"%s%s",b,a);
-	sprintf(ssaa,"Score:%d\n",score);
+	sprintf(ssaa,"Score:%d\nPress 'H' to find help.",score);
 	system("cls");
 	puts(aa);
-	helper.realtime_helper();
 }
 
 #undef ssaa
@@ -490,6 +511,9 @@ void play()
 			case 'h':
 				helper.help();
 				continue;
+			case 'c':
+				color();
+				continue;
 			default:
 				out();
 				puts("Sorry, I don't seem to understand. You can press 'H' to find help");
@@ -504,31 +528,31 @@ void play()
 		{
 			out();
 			puts("Invalid operation");
-			goto nextstep;
 		}
-		for (int i = 1; i <= 4; i++)
+		else
+		{
+			for (int i = 1; i <= 4; i++)
 			for (int j = 1; j <= 4; j++)
 				if (num[i][j])
 				{
 					full = 0;
 					break;
 				}
-		if (!full)
-		{
-			do
+			if (!full)
 			{
-				X = (rand() % 4) + 1;
-				Y = (rand() % 4) + 1;
-				if (num[X][Y] == 0)
+				for(;;)
 				{
-					num[X][Y] = neww[rand() % 4];
-					break;
+					X = (rand() % 4) + 1;
+					Y = (rand() % 4) + 1;
+					if (!num[X][Y])
+					{
+						num[X][Y] = neww[rand() % 4];
+						break;
+					}
 				}
 			}
-			while (1);
+			out();
 		}
-		out();
-nextstep:
 		if (!pd_ex())
 		{
 			int maxx = 0;
@@ -554,6 +578,11 @@ int main()
 	MessageBox(NULL, "在玩此游戏时，请不要开大写锁定。", "helper", MB_OK);
 	if (MessageBox(NULL, "Load Game?", "question", MB_YESNO) == IDYES) load();
 	else beginning();
+	char aaa[20];
+	freopen("color.bak","r",stdin);
+	gets(aaa);
+	fclose(stdin);
+	system(aaa);
 	play();
 	return 0;
 }
