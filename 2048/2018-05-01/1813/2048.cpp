@@ -22,35 +22,32 @@ int score;
 
 #define PERR(bSuccess, api) \
 {if(!(bSuccess)) printf("%s:Error %d from %s on line %d\n", __FILE__,GetLastError(), api, __LINE__);}
-void MyCls(HANDLE) ;
-inline void clrscr(void)
+void MyCls(HANDLE);
+inline void clrscr()
 {
 	HANDLE hStdOut=GetStdHandle(STD_OUTPUT_HANDLE);
 	MyCls(hStdOut);
 	return;
 }
+
 void MyCls(HANDLE hConsole)
 {
-	COORD coordScreen= {0,0}; //ÉèÖÃÇåÆÁºó¹â±ê·µ»ØµÄÆÁÄ»×óÉÏ½Ç×ø±ê
+	COORD coordScreen= {0,0}; //è®¾ç½®æ¸…å±åå…‰æ ‡è¿”å›çš„å±å¹•å·¦ä¸Šè§’åæ ‡
 	BOOL bSuccess;
 	DWORD cCharsWritten;
-	CONSOLE_SCREEN_BUFFER_INFO csbi;//±£´æ»º³åÇøĞÅÏ¢
-	DWORD dwConSize;//µ±Ç°»º³åÇø¿ÉÈİÄÉµÄ×Ö·ûÊı
-	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);//»ñµÃ»º³åÇøĞÅÏ¢
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD dwConSize;
+	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);
 	PERR(bSuccess,"GetConsoleScreenBufferInfo");
-	dwConSize=csbi.dwSize.X * csbi.dwSize.Y;//»º³åÇøÈİÄÉ×Ö·ûÊıÄ¿
-//ÓÃ¿Õ¸ñÌî³ä»º³åÇø
+	dwConSize=csbi.dwSize.X * csbi.dwSize.Y;
 	bSuccess=FillConsoleOutputCharacter(hConsole,(TCHAR)' ',dwConSize,coordScreen,&cCharsWritten);
 	PERR(bSuccess,"FillConsoleOutputCharacter");
-	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);//»ñµÃ»º³åÇøĞÅÏ¢
+	bSuccess=GetConsoleScreenBufferInfo(hConsole,&csbi);
 	PERR(bSuccess,"ConsoleScreenBufferInfo");
-//Ìî³ä»º³åÇøÊôĞÔ
 	bSuccess=FillConsoleOutputAttribute(hConsole,csbi.wAttributes,dwConSize,coordScreen,&cCharsWritten);
 	PERR(bSuccess,"FillConsoleOutputAttribute");
-//¹â±ê·µ»ØÆÁÄ»×óÉÏ½Ç×ø±ê
 	bSuccess=SetConsoleCursorPosition(hConsole,coordScreen);
 	PERR(bSuccess,"SetConsoleCursorPosition");
-	return;
 }
 
 void hidecursor()
@@ -77,9 +74,9 @@ class HELPER
 		void jieshao()
 		{
 			clrscr();
-			puts("ÓÎÏ·½éÉÜ");
-			puts("2048ÊÇÒ»¿îÊı×ÖÒæÖÇÓÎÏ·£¬¶ø¡¶2048¡·µÄ³õÊ¼Êı×ÖÔòÊÇÓÉ2+2×é³ÉµÄ»ùÊı4¡£ÔÚ²Ù×÷·½ÃæµÄ²»Í¬Ôò±íÏÖÎªÒ»²½Ò»¸ñµÄÒÆ¶¯£¬±ä³É¸üÎªË¬¿ìµÄÒ»´Îµ½µ×¡£ÏàÍ¬Êı×ÖµÄ·½¿öÔÚ¿¿Â£¡¢Ïà×²Ê±»áÏà¼Ó¡£ÏµÍ³¸øÓèµÄÊı×Ö·½¿é²»ÊÇ2¾ÍÊÇ4£¬Íæ¼ÒÒªÏë°ì·¨ÔÚÕâĞ¡Ğ¡µÄ16¸ñ·¶Î§ÖĞ´Õ³ö¡¸2048¡¹Õâ¸öÊı×Ö·½¿é¡£");
-			puts("\n°´'B'¼ü·µ»Ø£¬°´'C'¼ÌĞøÓÎÏ·¡£");
+			puts("æ¸¸æˆä»‹ç»");
+			puts("2048æ˜¯ä¸€æ¬¾æ•°å­—ç›Šæ™ºæ¸¸æˆï¼Œè€Œã€Š2048ã€‹çš„åˆå§‹æ•°å­—åˆ™æ˜¯ç”±2+2ç»„æˆçš„åŸºæ•°4ã€‚åœ¨æ“ä½œæ–¹é¢çš„ä¸åŒåˆ™è¡¨ç°ä¸ºä¸€æ­¥ä¸€æ ¼çš„ç§»åŠ¨ï¼Œå˜æˆæ›´ä¸ºçˆ½å¿«çš„ä¸€æ¬¡åˆ°åº•ã€‚ç›¸åŒæ•°å­—çš„æ–¹å†µåœ¨é æ‹¢ã€ç›¸æ’æ—¶ä¼šç›¸åŠ ã€‚ç³»ç»Ÿç»™äºˆçš„æ•°å­—æ–¹å—ä¸æ˜¯2å°±æ˜¯4ï¼Œç©å®¶è¦æƒ³åŠæ³•åœ¨è¿™å°å°çš„16æ ¼èŒƒå›´ä¸­å‡‘å‡ºã€Œ2048ã€è¿™ä¸ªæ•°å­—æ–¹å—ã€‚");
+			puts("\næŒ‰'B'é”®è¿”å›ï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚");
 			for (;;)
 			{
 				char ch = in();
@@ -92,9 +89,9 @@ class HELPER
 		void teach()
 		{
 			clrscr();
-			puts("ÓÎÏ·¹¥ÂÔ");
-			puts("1¡¢×î´óÊı¾¡¿ÉÄÜ·ÅÔÚ½ÇÂä¡£\n2¡¢Êı×Ö°´Ë³Ğò½ôÁÚÅÅÁĞ¡£\n3¡¢Ê×ÏÈÂú×ã×î´óÊıºÍ´Î´óÊıÔÚµÄÄÇÒ»ÁĞ / ĞĞÊÇÂúµÄ¡£\n4¡¢Ê±¿Ì×¢Òâ»î¶¯½Ï´óÊı£¨32ÒÔÉÏ£©ÅÔ±ßÒªÓĞÏà½üµÄÊı¡£\n5¡¢ÒÔ´óÊıËùÔÚµÄÒ»ĞĞÎªÖ÷ÒªÒÆ¶¯·½Ïò\n6¡¢²»Òª¼±ÓÚ¡°ÇåÀí×ÀÃæ¡±¡£");
-			puts("\n°´'B'¼ü·µ»Ø£¬°´'C'¼ÌĞøÓÎÏ·¡£");
+			puts("æ¸¸æˆæ”»ç•¥");
+			puts("1ã€æœ€å¤§æ•°å°½å¯èƒ½æ”¾åœ¨è§’è½ã€‚\n2ã€æ•°å­—æŒ‰é¡ºåºç´§é‚»æ’åˆ—ã€‚\n3ã€é¦–å…ˆæ»¡è¶³æœ€å¤§æ•°å’Œæ¬¡å¤§æ•°åœ¨çš„é‚£ä¸€åˆ— / è¡Œæ˜¯æ»¡çš„ã€‚\n4ã€æ—¶åˆ»æ³¨æ„æ´»åŠ¨è¾ƒå¤§æ•°ï¼ˆ32ä»¥ä¸Šï¼‰æ—è¾¹è¦æœ‰ç›¸è¿‘çš„æ•°ã€‚\n5ã€ä»¥å¤§æ•°æ‰€åœ¨çš„ä¸€è¡Œä¸ºä¸»è¦ç§»åŠ¨æ–¹å‘\n6ã€ä¸è¦æ€¥äºâ€œæ¸…ç†æ¡Œé¢â€ã€‚");
+			puts("\næŒ‰'B'é”®è¿”å›ï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚");
 			for (;;)
 			{
 				char ch = in();
@@ -107,9 +104,9 @@ class HELPER
 		void ppress()
 		{
 			clrscr();
-			puts("°´¼ü¹¦ÄÜ");
-			puts("ÉÏ:'W','¡ü'\nÏÂ:'S','¡ı'\n×ó:'A','¡û'\nÓÒ:'D','¡ú'\n±£´æ:'Q'\nÍË³ö:'O'\nÖØĞÂ¿ªÊ¼:'B'\n°ïÖú:'H'");
-			puts("\n°´'B'¼ü·µ»Ø£¬°´'C'¼ÌĞøÓÎÏ·¡£");
+			puts("æŒ‰é”®åŠŸèƒ½");
+			puts("ä¸Š:'W','â†‘'\nä¸‹:'S','â†“'\nå·¦:'A','â†'\nå³:'D','â†’'\nä¿å­˜:'Q'\né€€å‡º:'O'\né‡æ–°å¼€å§‹:'B'\nå¸®åŠ©:'H'");
+			puts("\næŒ‰'B'é”®è¿”å›ï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚");
 			for (;;)
 			{
 				char ch = in();
@@ -130,7 +127,7 @@ class HELPER
 					return;
 				}
 				clrscr();
-				puts("°´Êı×Ö¼üÀ´Ñ¡Ôñ£¬°´'B'¼ü·µ»Ø£¬°´'C'¼ÌĞøÓÎÏ·¡£\n1.ÓÎÏ·½éÉÜ\n2.°´¼ü¹¦ÄÜ\n3.ÓÎÏ·¹¥ÂÔ");
+				puts("æŒ‰æ•°å­—é”®æ¥é€‰æ‹©ï¼ŒæŒ‰'B'é”®è¿”å›ï¼ŒæŒ‰'C'ç»§ç»­æ¸¸æˆã€‚\n1.æ¸¸æˆä»‹ç»\n2.æŒ‰é”®åŠŸèƒ½\n3.æ¸¸æˆæ”»ç•¥");
 				char ch = in();
 				switch (ch)
 				{
@@ -164,7 +161,7 @@ void color()
 	{
 		clrscr();
 		puts("What color do you want?\npress '1', '2', '3' to choose, and press 's' to save");
-		puts("\n1. °×µ×ºÚ×Ö\n2. ºÚµ×°××Ö\n") ;
+		puts("\n1. ç™½åº•é»‘å­—\n2. é»‘åº•ç™½å­—\n") ;
 		int co = in();
 		switch(co)
 		{
@@ -226,7 +223,7 @@ bool compare()
 			}
 	fin >> comp;
 	fin.close();
-	return comp ^ score;
+	return comp != score;
 }
 
 void save()
@@ -237,7 +234,7 @@ void save()
 			fout << num[i][j] << ' ';
 	fout << score;
 	fout.close();
-	MessageBox(NULL, "±£´æ³É¹¦£¡", "WARNING", MB_OK);
+	MessageBox(NULL, "ä¿å­˜æˆåŠŸï¼", "WARNING", MB_OK);
 }
 
 void load()
@@ -248,7 +245,7 @@ void load()
 		{
 			if ((!(fin >> num[i][j])) || (num[i][j] & 1))
 			{
-				MessageBox(NULL, "ÕÒ²»µ½ºÏ·¨ÎÄ¼ş£¬×¼±¸ÖØĞÂ¿ªÊ¼", "WARNING", MB_OK);
+				MessageBox(NULL, "æ‰¾ä¸åˆ°åˆæ³•æ–‡ä»¶ï¼Œå‡†å¤‡é‡æ–°å¼€å§‹", "WARNING", MB_OK);
 				beginning();
 				ofstream fout("saveload.data");
 				for (int i = 1; i <= 4; i++)
@@ -614,7 +611,7 @@ int main()
 {
 	hidecursor();
 	MessageBox(NULL, "Welcome to 2048 games.", "WELCOME", MB_OK);
-	MessageBox(NULL, "ÔÚÍæ´ËÓÎÏ·Ê±£¬Çë²»Òª¿ª´óĞ´Ëø¶¨¡£", "helper", MB_OK);
+	MessageBox(NULL, "åœ¨ç©æ­¤æ¸¸æˆæ—¶ï¼Œè¯·ä¸è¦å¼€å¤§å†™é”å®šã€‚", "helper", MB_OK);
 	if (MessageBox(NULL, "Load Game?", "question", MB_YESNO) == IDYES) load();
 	else beginning();
 	char aaa[20];
