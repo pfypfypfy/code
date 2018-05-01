@@ -144,6 +144,7 @@ class HELPER
 				if (flag)
 				{
 					flag = false;
+					out();
 					return;
 				}
 			}
