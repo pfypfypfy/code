@@ -3,12 +3,15 @@
 #include <cstdio>
 #include <ctime>
 #include <cstdlib>
+#include <cctype>
 #include <cstring>
+#include <iostream>
 
 #define clr(a) memset(a, 0, sizeof(a))
 #define back(a) (a+strlen(a))
 
-using namespace std;
+using std::cin;
+using std::cout;
 
 int x,y,n,m,sum,placex,placey;
 char mp[301][301];
